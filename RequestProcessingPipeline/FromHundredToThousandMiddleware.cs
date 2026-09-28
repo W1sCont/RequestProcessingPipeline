@@ -53,7 +53,7 @@
             }
             else
             {
-                if (number % 100 == 0)
+                if (number % 100 == 0 || number < 1000)
                 {
                     // Видаємо остаточну відповідь клієнту
                     await context.Response.WriteAsync($"Your number is {hundreds[number / 100 - 1]}");
