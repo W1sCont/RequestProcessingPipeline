@@ -44,16 +44,21 @@
                         context.Session.SetString("number", $"{current} {unitPart}");
                     }
                 }
-                else await _next.Invoke(context);
+                else
+                {
+                    await _next.Invoke(context);
+                    return;
+                }
             }
             else if (number == 1000)
             {
                 // Видаємо остаточну відповідь клієнту
                 await context.Response.WriteAsync("Your number is one thousand");
+                return;
             }
             else
             {
-                if (number % 100 == 0 || number < 1000)
+                if (number % 100 == 0)
                 {
                     // Видаємо остаточну відповідь клієнту
                     await context.Response.WriteAsync($"Your number is {hundreds[number / 100 - 1]}");

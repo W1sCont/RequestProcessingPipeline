@@ -41,36 +41,43 @@
                 return;
             }
 
-            if (thousandsCount >= 1 && thousandsCount <= 9)
+            if(number >= 1000)
             {
-                thousandsText = $"{ones[thousandsCount - 1]} thousand";
-            }
-            else if (thousandsCount >= 10 && thousandsCount <= 19)
-            {
-                thousandsText = $"{from10kTo19k[thousandsCount - 10]} thousand";
-            }
-            else if (thousandsCount >= 20 && thousandsCount < 100)
-            {
-                int tens = thousandsCount / 10;
-                int units = thousandsCount % 10;
+                if (thousandsCount >= 1 && thousandsCount <= 9)
+                {
+                    thousandsText = $"{ones[thousandsCount - 1]} thousand";
+                }
+                else if (thousandsCount >= 10 && thousandsCount <= 19)
+                {
+                    thousandsText = $"{from10kTo19k[thousandsCount - 10]} thousand";
+                }
+                else if (thousandsCount >= 20 && thousandsCount < 100)
+                {
+                    int tens = thousandsCount / 10;
+                    int units = thousandsCount % 10;
 
-                if (units == 0)
-                    thousandsText = $"{from20kTo90k[tens - 2]} thousand";
-                else
-                    thousandsText = $"{from20kTo90k[tens - 2]} {ones[units - 1]} thousand";
+                    if (units == 0)
+                        thousandsText = $"{from20kTo90k[tens - 2]} thousand";
+                    else
+                        thousandsText = $"{from20kTo90k[tens - 2]} {ones[units - 1]} thousand";
+                }
             }
 
-            if (number % 1000 == 0)
+            if (number % 10000 == 0)
             {
                 await context.Response.WriteAsync($"Your number is {thousandsText}");
                 return;
             }
-            else
+            else if(number > 1000 && number < 100000)
             {
                 await _next.Invoke(context);
                 string? lowerPart = context.Session.GetString("number");
                 await context.Response.WriteAsync($"Your number is {thousandsText} {lowerPart}");
                 return;
+            }
+            else
+            {
+                await _next.Invoke(context);
             }
         }
     }
