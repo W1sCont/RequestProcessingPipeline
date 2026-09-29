@@ -11,11 +11,10 @@ public class FromOneToTenMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        string? token = context.Request.Query["number"]; // Отримуємо число з контексту запиту
+        string? token = context.Request.Query["number"];
 
         if (!int.TryParse(token, out int number))
         {
-            // Видаємо остаточну відповідь клієнту
             await context.Response.WriteAsync("Incorrect parameter");
             return;
         }

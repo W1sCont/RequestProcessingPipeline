@@ -13,8 +13,7 @@ app.UseSession();   // Додаємо middleware-компонент для ро�
 
 // Додаємо middleware-компоненти в конвеєр обробки запиту
 
-app.UseFromThousandToHundredThousand(); // 10000-100000
-// app.UseFromThousandToTenThousandMiddleware(); // 1000-10000
+app.UseFromThousandToHundredThousand(); // 1000-100000
 app.UseFromHundredToThousand(); // 100-1000
 
 app.UseFromTwentyToHundred(); // 20-100

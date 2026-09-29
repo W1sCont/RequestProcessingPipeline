@@ -15,7 +15,6 @@ public class FromElevenToNineteenMiddleware
 
         if (!int.TryParse(token, out int number))
         {
-            // Видаємо остаточну відповідь клієнту
             await context.Response.WriteAsync("Incorrect parameter");
             return;
         }
@@ -24,13 +23,11 @@ public class FromElevenToNineteenMiddleware
 
         if (number < 11 || number > 19)
         {
-            // Передаємо контекст запиту наступному компоненту
             await _next.Invoke(context);
         }
         else
         {
             string[] numbers = { "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-            // Видаємо остаточну відповідь клієнту
             await context.Response.WriteAsync($"Your number is {numbers[number - 11]}");
         }
     }

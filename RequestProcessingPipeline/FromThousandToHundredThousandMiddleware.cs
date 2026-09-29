@@ -11,7 +11,7 @@
 
         public async Task InvokeAsync(HttpContext context)
         {
-            string? token = context.Request.Query["number"]; // Отримуємо число з контексту запиту
+            string? token = context.Request.Query["number"];
             string[] ones = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
             string[] from10kTo19k = { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
                 "sixteen", "seventeen", "eighteen", "nineteen" };
@@ -20,7 +20,6 @@
 
             if (!int.TryParse(token, out int number))
             {
-                // Видаємо остаточну відповідь клієнту
                 await context.Response.WriteAsync("Incorrect parameter");
                 return;
             }
